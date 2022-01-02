@@ -5,7 +5,7 @@ export function letterify(str: string) {
 }
 
 export function numberify(str: string) {
-  return str.replaceAll('#', `${randomDigit()}`)
+  return str.replaceAll('#', () => `${randomDigit()}`)
 }
 
 export function join(...tokens: string[]) {

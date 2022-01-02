@@ -9,3 +9,4 @@ export {
   randomUpperCase,
   UPPERCASE,
 } from './utils/randomizers'
+export { createPaymentCard } from './providers/payment'

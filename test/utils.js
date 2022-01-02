@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable func-names */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { strict as assert } from 'assert'
+import { expect } from 'chai'
 import { describe, it } from 'mocha'
 import {
   join,
@@ -24,13 +24,10 @@ describe('RandomGenerator', function () {
       const generator = RandomGenerator.from(array)
       const results = Array.from({ length: 5 }, () => generator())
 
-      assert.notDeepEqual(array, results)
+      expect(array).to.not.deep.equal(results)
 
       for (const value of results) {
-        assert.equal(
-          array.some((v) => v === value),
-          true,
-        )
+        expect(array.includes(value)).to.be.true
       }
     })
   })
@@ -41,14 +38,11 @@ describe('RandomGenerator', function () {
       const generator = RandomGenerator.from(array)
       const results = generator.toArray(10)
 
-      assert.notDeepEqual(array, results)
-      assert.equal(results.length, 10)
+      expect(array).to.not.deep.equal(results)
+      expect(results.length).to.equal(10)
 
       for (const value of results) {
-        assert.equal(
-          array.some((v) => v === value),
-          true,
-        )
+        expect(array.includes(value)).to.be.true
       }
     })
   })
@@ -63,15 +57,12 @@ describe('RandomGenerator', function () {
       const generator = RandomGenerator.from(object)
       const results = generator.toArray(5)
 
-      assert.equal(results.length, 5)
+      expect(results.length).to.equal(5)
 
       const values = Object.values(object)
 
       for (const value of values) {
-        assert.equal(
-          values.some((v) => v === value),
-          true,
-        )
+        expect(values.includes(value)).to.be.true
       }
     })
   })
@@ -84,15 +75,12 @@ describe('randomizers', function () {
       const array2 = Array.from({ length: 25 }, randomDigit)
 
       // possible that they are equal, but unlikely
-      assert.notDeepEqual(array1, array2)
+      expect(array1).to.not.deep.equal(array2)
 
       const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 
       for (const value of array1.concat(array2)) {
-        assert.equal(
-          numbers.some((n) => n === value),
-          true,
-        )
+        expect(numbers.includes(value)).to.be.true
       }
     })
   })
@@ -108,13 +96,10 @@ describe('randomizers', function () {
         const array1 = Array.from({ length: 25 }, generator)
         const array2 = Array.from({ length: 25 }, generator)
 
-        assert.notDeepEqual(array1, array2)
+        expect(array1).to.not.deep.equal(array2)
 
         for (const value of array1.concat(array2)) {
-          assert.equal(
-            characterSet.some((l) => l === value),
-            true,
-          )
+          expect(characterSet.includes(value)).to.be.true
         }
       })
     }
@@ -128,7 +113,7 @@ describe('replacers', function () {
       const actual = letterify(initial)
       const expectedPattern = /^([a-zA-Z]{4}-[a-zA-Z]{4}-[a-zA-Z]{4})$/
 
-      assert.equal(expectedPattern.test(actual), true)
+      expect(expectedPattern.test(actual)).to.be.true
     })
   })
 
@@ -138,7 +123,7 @@ describe('replacers', function () {
       const actual = numberify(initial)
       const expectedPattern = /^([\d]{4}-[\d]{4}-[\d]{4}-[\d]{4})$/
 
-      assert.equal(expectedPattern.test(actual), true)
+      expect(expectedPattern.test(actual)).to.be.true
     })
   })
 
@@ -148,7 +133,7 @@ describe('replacers', function () {
       const expected = 'hello world'
       const actual = join(...initial)
 
-      assert.equal(actual, expected)
+      expect(actual).to.equal(expected)
     })
   })
 })
