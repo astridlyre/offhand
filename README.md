@@ -10,23 +10,36 @@ npm install @ebflat9/offhand
 
 ## Usage
 
-Generate a random generator function from an Array or an Object.
-
 ```javascript
-import { RandomGenerator } from '@ebflat9/offhand'
+import { Offhand } from '@ebflat9/offhand'
 
-const randomNumbers = RandomGenerator.from([1, 2, 3, 4, 5])
+const offhand = new Offhand({ locale: 'en-US' })
+
+// Generate a random generator function from an Array or an Object.
+const randomNumbers = offhand.randomGenerator.from([1, 2, 3, 4, 5])
 
 // randomNumbers() => 2
 // randomNumbers() => 1
 // randomNumbers() => 5 ... etc
-```
 
-Fill placeholders with values.
+// Fill placeholders with values.
+offhand.replacer.letterify('XXXX-XXXX') // => aFeLk-UPoi
+offhand.replacer.numberify('####-####') // => 3549-9883
 
-```javascript
-import { letterify, numberify } from '@ebflat9/offhand'
+// Generate random dates
+offhand.date.random('YYYY-MM-DD') // => 2005-05-02
 
-letterify('XXXX-XXXX') // => aFeLk-UPoi
-numberify('####-####') // => 3549-9883
+// Generate random times
+offhand.date.time() // => 14:34:22
+
+// Generate random credit card information
+offhand.creditCard.paymentDetails()
+/*
+{
+  "type": "MasterCard",
+  "number": "5345568597860043",
+  "expiration": "05/23",
+  "holder": "John Smith"
+}
+*/
 ```
