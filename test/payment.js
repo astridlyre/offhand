@@ -18,8 +18,6 @@ describe('providers', function () {
       const numberPattern = /^[\d]{16}$/
       const datePattern = /^([\d]{2}\/[\d]{2})$/
 
-      console.log(card)
-
       expect(validTypes.includes(card.type)).to.be.true
       expect(card.holder).to.equal('John Smith')
       expect(datePattern.test(card.expiration)).to.be.true
