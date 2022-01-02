@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha --parallel",
     "test:build": "parcel build src/index.ts && mocha --parallel",
-    "build": "parcel build src/index.ts",
+    "build": "rm -rf dist && parcel build src/index.ts",
     "check": "tsc --noEmit",
     "check:format": "prettier -c src/**",
     "dev": "parcel watch src/index.ts",
