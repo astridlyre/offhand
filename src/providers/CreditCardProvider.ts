@@ -1,5 +1,6 @@
-import { numberify } from '../utils/replacers'
-import { randomDate, randomIndex } from '../utils/randomizers'
+import { Replacer } from '../utils/Replacer'
+import { Randomizer } from '../utils/Randomizer'
+import { DateProvider } from './DateProvider'
 
 type TCreditCardVendorName =
   | 'MasterCard'
@@ -62,16 +63,30 @@ interface ICreditCardDetails {
   holder: string
 }
 
-export function createPaymentCard(): ICreditCardDetails {
-  const vendor = randomIndex(CARD_VENDORS)
-  const number = numberify(randomIndex(vendor.formats))
-  const expiration = randomDate('MM/YY')
-  const holder = 'John Smith'
+export class CreditCardProvider {
+  #randomizer
+  #replacer
+  #date
 
-  return {
-    type: vendor.name,
-    number,
-    expiration,
-    holder,
+  constructor(randomizer: Randomizer, replacer: Replacer, date: DateProvider) {
+    this.#randomizer = randomizer
+    this.#replacer = replacer
+    this.#date = date
+  }
+
+  paymentDetails(): ICreditCardDetails {
+    const vendor = this.#randomizer.randomIndex(CARD_VENDORS)
+    const number = this.#replacer.numberify(
+      this.#randomizer.randomIndex(vendor.formats),
+    )
+    const expiration = this.#date.random('MM/YY') as string
+    const holder = 'John Smith'
+
+    return {
+      type: vendor.name,
+      number,
+      expiration,
+      holder,
+    }
   }
 }
