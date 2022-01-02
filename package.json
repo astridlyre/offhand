@@ -1,5 +1,5 @@
 {
-  "name": "offhand",
+  "name": "@ebflat9/offhand",
   "version": "0.0.1",
   "description": "Offhand is a fake data generator for JavaScript",
   "source": "src/index.ts",
@@ -25,6 +25,10 @@
     "data generator"
   ],
   "author": "Erin Burton",
+  "bugs": {
+    "url": "https://github.com/astridlyre/offhand/issues"
+  },
+  "homepage": "https://github.com/astridlyre/offhand#readme",
   "license": "MIT",
   "devDependencies": {
     "@parcel/core": "^2.0.1",
