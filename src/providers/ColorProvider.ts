@@ -1,12 +1,20 @@
 /* eslint-disable no-magic-numbers */
 import { COLOR_NAMES, SAFE_COLORS } from './Colors/Colors'
-import { Randomizer } from '../utils/Randomizer'
 import { padTo } from '../utils/functions'
+import { IProviderProps } from './Provider'
 
 export class ColorProvider {
   #randomizer
 
-  constructor(randomizer: Randomizer) {
+  constructor(props: IProviderProps) {
+    const { randomizer } = props
+
+    if (!randomizer) {
+      throw new Error(
+        'Unable to initialize ColorProvider, randomizer was undefined',
+      )
+    }
+
     this.#randomizer = randomizer
   }
 

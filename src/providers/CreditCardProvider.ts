@@ -1,6 +1,4 @@
-import { Replacer } from '../utils/Replacer'
-import { Randomizer } from '../utils/Randomizer'
-import { DateProvider } from './DateProvider'
+import { IProviderProps } from './Provider'
 
 type TCreditCardVendorName =
   | 'MasterCard'
@@ -68,7 +66,16 @@ export class CreditCardProvider {
   #replacer
   #date
 
-  constructor(randomizer: Randomizer, replacer: Replacer, date: DateProvider) {
+  constructor(props: IProviderProps) {
+    const { randomizer, replacer, date } = props
+
+    if (!randomizer || !replacer || !date) {
+      throw new Error(
+        'Unable to initialize CreditCardProvider, ' +
+          'randomizer, replacer, or date is undefined',
+      )
+    }
+
     this.#randomizer = randomizer
     this.#replacer = replacer
     this.#date = date

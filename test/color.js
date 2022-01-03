@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { describe, it } from 'mocha'
 import { Offhand } from '../dist/index.js'
 
-const offhand = new Offhand({ locale: 'en-US' })
+const offhand = Offhand.setup({ locale: 'en-US' })
 
 describe('color', function () {
   describe('name', function () {

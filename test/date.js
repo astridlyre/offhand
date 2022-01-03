@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { describe, it } from 'mocha'
 import { Offhand } from '../dist/index.js'
 
-const offhand = new Offhand({ locale: 'en-US' })
+const offhand = Offhand.setup({ locale: 'en-US' })
 
 describe('date', function () {
   describe('century', function () {
@@ -126,7 +126,7 @@ describe('date', function () {
   describe('random', function () {
     it('should return a random date MM/YY', function () {
       const actual = offhand.date.random('MM/YY')
-      const pattern = /^[01][1-9]\/[0-9]{2}$/
+      const pattern = /^[01][0-9]\/[0-9]{2}$/
 
       expect(pattern.test(actual)).to.be.true
     })

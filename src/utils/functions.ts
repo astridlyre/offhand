@@ -8,3 +8,10 @@ export const randomNumber = (start = 0, end = 100) =>
 
 export const add = (x: number, y: number) => x + y
 export const subtract = (x: number, y: number) => x - y
+
+export const reify = (context: any, formats: (string | (() => string))[]) =>
+  formats
+    .map((format) =>
+      typeof format === 'function' ? format.call(context) : format,
+    )
+    .join('')

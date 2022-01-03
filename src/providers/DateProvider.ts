@@ -1,8 +1,7 @@
 /* eslint-disable no-magic-numbers, no-unused-vars */
-import { IConfigOptions } from '../utils/Config'
-import { Randomizer } from '../utils/Randomizer'
 import { padTo, randomNumber, add, subtract } from '../utils/functions'
 import { TIMEZONES, CENTURIES } from './Date/Date'
+import { IProviderProps } from './Provider'
 
 const pad2 = padTo(2)
 const FOUR_YEARS = 126144000000
@@ -11,7 +10,15 @@ export class DateProvider {
   #config
   #randomizer
 
-  constructor(randomizer: Randomizer, config: IConfigOptions) {
+  constructor(props: IProviderProps) {
+    const { config, randomizer } = props
+
+    if (!config || !randomizer) {
+      throw new Error(
+        'Unable to initialize DateProvider, config or randomizer was undefined',
+      )
+    }
+
     this.#config = config
     this.#randomizer = randomizer
   }
@@ -27,15 +34,41 @@ export class DateProvider {
     )
   }
 
-  century = () => this.#randomizer.randomIndex(CENTURIES)
-  ampm = () => this.#randomizer.randomIndex(['am', 'pm'])
-  dayOfYear = () => randomNumber(1, 365)
-  dayOfMonth = () => this.#randomLocaleDate({ day: 'numeric' })
-  dayOfWeek = () => this.#randomLocaleDate({ weekday: 'long' })
-  monthNumber = () => randomNumber(1, 12)
-  monthName = () => this.#randomLocaleDate({ month: 'long' })
-  year = () => randomNumber(1960, 2060)
-  timezone = () => this.#randomizer.randomIndex(TIMEZONES)
+  century() {
+    return this.#randomizer.randomIndex(CENTURIES)
+  }
+
+  ampm() {
+    return this.#randomizer.randomIndex(['am', 'pm'])
+  }
+
+  dayOfYear() {
+    return randomNumber(1, 365)
+  }
+
+  dayOfMonth() {
+    return this.#randomLocaleDate({ day: 'numeric' })
+  }
+
+  dayOfWeek() {
+    return this.#randomLocaleDate({ weekday: 'long' })
+  }
+
+  monthNumber() {
+    return randomNumber(1, 12)
+  }
+
+  monthName() {
+    return this.#randomLocaleDate({ month: 'long' })
+  }
+
+  year() {
+    return randomNumber(1960, 2060)
+  }
+
+  timezone() {
+    return this.#randomizer.randomIndex(TIMEZONES)
+  }
 
   unix() {
     return Math.round(Math.random() * Date.now())
