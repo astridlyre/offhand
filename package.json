@@ -1,6 +1,6 @@
 {
   "name": "@ebflat9/offhand",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Offhand is a fake data generator for JavaScript",
   "source": "src/index.ts",
   "main": "dist/index.js",
